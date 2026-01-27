@@ -18,6 +18,8 @@ export const fetchOutput = async (languageId, code) => {
             })
         });
 
+        console.log(response.status);
+
         if (!response.ok) {
             if(response.status === 429)
                 alert('You have Reached the maximum code compilation attemps!😱');
@@ -28,6 +30,7 @@ export const fetchOutput = async (languageId, code) => {
         }
 
         const { token } = await response.json(); 
+        console.log('token'+token);
 
         // STEP 2: Wait for Judge0 to compile (usually 1-2 seconds)
         // We poll the result using the token

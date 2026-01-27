@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      <Box minH='100vh' bg='#0f0a19' color='gray.500' py={8}>
+      <Box minH='100vh' bg='#333333ff' color='gray.500' py={8}>
         <CodeEditor />
       </Box>
     </>

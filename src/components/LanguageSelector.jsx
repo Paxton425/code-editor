@@ -10,7 +10,7 @@ function LanguageSelector({ languageId, onSelectLanguage }) {
                 onChange={(e) => onSelectLanguage(e.target.value)} 
                 width='200px' 
                 variant="filled"
-                placeholder='Select language'
+                placeholder='Choose language'
             >
                 {Languages.map((lang) => (
                     <option 

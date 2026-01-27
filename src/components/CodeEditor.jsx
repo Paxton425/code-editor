@@ -35,7 +35,7 @@ function CodeEditor() {
     }
 
     return(
-        <Box m={16}>
+        <Box m={8}>
             <HStack spacing={4}>
                 <Box w='50%'>
                     <LanguageSelector 
@@ -43,7 +43,7 @@ function CodeEditor() {
                         onSelectLanguage={handleLanguageChange} />
                     <AceEditor
                         mode={language.aceName}
-                        theme='textmate'
+                        theme='monokai'
                         name='ace-editor-instance'
                         value={code}
                         onChange={handleCodeChange}

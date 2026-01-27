@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.10.9",
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-react": "^2.3.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "ace-builds": "^1.43.6",
