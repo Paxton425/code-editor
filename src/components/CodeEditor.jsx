@@ -2,7 +2,8 @@ import LanguageSelector from './LanguageSelector'
 import { Languages } from "./Languages.js";
 import Output from './Output';
 
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { InputContext } from './InputContext.jsx'
 import { Box, HStack, Flex } from '@chakra-ui/react'
 import AceEditor from "react-ace";
 import ace from 'ace-builds';
@@ -12,22 +13,21 @@ ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.32.2/src-n
 ace.config.set("modePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.32.2/src-noconflict/");
 ace.config.set("themePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.32.2/src-noconflict/");
 
-function CodeEditor() {
+function CodeEditor({ isDarkTheme }) {
+    const inputContext = useContext(InputContext);
+    const languageContext = inputContext.language;
+    const codeContext = inputContext.code;
 
-    const defaultLang = Languages[2];
-    const [ code, setCode ]  = useState(`//Type Some ${defaultLang.name} Code Here... \n\n${defaultLang.sample}`);
     const handleCodeChange = (newValue)=> {
-        setCode(newValue);
+        codeContext.set(newValue);
     }
-
-    const [ language, setLanguage ] = useState(defaultLang);
     const handleLanguageChange = (newLangId) => {
         try{
             let newLanguage = Languages.find((language) => language.id == newLangId);
             console.log('Current language: ', newLanguage, 'id: ', newLangId)
             if(newLanguage){
-                setLanguage(newLanguage);
-                setCode(newLanguage.sample);
+                languageContext.set(newLanguage);
+                codeContext.set(newLanguage.sample);
             }
         } catch(error){
             console.log('Error while setting language: '+error);
@@ -39,13 +39,13 @@ function CodeEditor() {
             <HStack spacing={4}>
                 <Box w='50%'>
                     <LanguageSelector 
-                        languageId={language.id} 
+                        languageId={(languageContext.get()).id} 
                         onSelectLanguage={handleLanguageChange} />
                     <AceEditor
-                        mode={language.aceName}
-                        theme='monokai'
+                        mode={(languageContext.get()).aceName}
+                        theme={isDarkTheme? 'monokai':'tomorrow'}
                         name='ace-editor-instance'
-                        value={code}
+                        value={codeContext.get()}
                         onChange={handleCodeChange}
                         fontSize={16}
                         fontFamily='consolata'
@@ -62,7 +62,7 @@ function CodeEditor() {
                         }}/>
                 </Box>
                 <Box w={'50%'}>
-                    <Output languageId={language.id} sourceCode={code} />
+                    <Output languageId={languageContext.get().id} sourceCode={codeContext.get()} />
                 </Box>
             </HStack>
         </Box>
