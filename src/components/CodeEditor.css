@@ -1,0 +1,34 @@
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    /* 1. Force the Flex to stack and reset margins */
+    .code-editor-container {
+        display: flex !important;
+        flex-direction: column !important;
+        margin: 10px !important;
+        gap: 15px !important;
+    }
+
+    /* 2. Shorten the Editor Box and reduce font */
+    .code-input-box {
+        width: 100% !important;
+    }
+
+    #ace-editor-instance {
+        height: 40vh !important; /* Shortens the editor */
+        width: 100% !important;
+    }
+
+    /* Force Ace internal font size down */
+    #ace-editor-instance .ace_content, 
+    #ace-editor-instance .ace_gutter {
+        font-size: 12px !important; 
+    }
+
+    /* 3. Shorten the Output Box and its font */
+    .output-box {
+        width: 100% !important;
+        max-height: 50vh !important; /* Prevents output from taking over the screen */
+        overflow-y: auto;
+        font-size: 12px !important; 
+    }
+}

@@ -56,7 +56,7 @@ function Output({languageId, sourceCode}) {
 
     return( 
         <Box w='100%'>
-            <Text mb={2} fontSize='lg'>Output:</Text>
+            <Text m={{ base: 0, md: 2}} display={{ base:'none', md:'block' }} fontSize='lg'>Output:</Text>
             <Button 
                 onClick={handleExecute}
                 isLoading = {isLoading}

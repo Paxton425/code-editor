@@ -1,3 +1,4 @@
+import './CodeEditor.css'
 import LanguageSelector from './LanguageSelector'
 import { Languages } from "./Languages.js";
 import Output from './Output';
@@ -36,8 +37,17 @@ function CodeEditor({ isDarkTheme }) {
 
     return(
         <Box m={8}>
-            <HStack spacing={4}>
-                <Box w='50%'>
+            <Flex 
+                direction={{ base: 'column', md: 'row' }} // Column on mobile, Row on desktop
+                minH="100vh"
+                width='100%'
+                gap={4}
+                m={{ base: 2, md: 8 }} // Smaller margins on mobile
+                >
+                <Box
+                className='code-input-box'
+                    w={{ base: '100%', md:'50%' }}
+                    >
                     <LanguageSelector 
                         languageId={(languageContext.get()).id} 
                         onSelectLanguage={handleLanguageChange} />
@@ -54,17 +64,17 @@ function CodeEditor({ isDarkTheme }) {
                         editorProps={{ $blockScrolling: true }} 
                         setOptions={{
                             useWorker: false, // Disabling workers prevents the 404 mode-python.js error
-                            enableBasicAutocompletion: true,
+                            EnableBasicAutocompletion: true,
                             enableLiveAutocompletion: true,
                             showPrintMargin: false,
                             highlightActiveLine: true,
                             lineHeight: 24,
                         }}/>
                 </Box>
-                <Box w={'50%'}>
+                <Box className='output-box' w={'50%'}>
                     <Output languageId={languageContext.get().id} sourceCode={codeContext.get()} />
                 </Box>
-            </HStack>
+            </Flex>
         </Box>
     )
 }
