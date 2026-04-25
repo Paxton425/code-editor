@@ -23,7 +23,8 @@ function InvoiceContextProvder({ children }){
             get: ()=> inputData.language,
             set: (value)=>{
                 updateIputData({ language: value });
-            }
+            },
+            getAllLanguages: ()=> Languages
         },
         code: {
             get: ()=> inputData.code,

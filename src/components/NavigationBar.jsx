@@ -16,13 +16,11 @@ function NavigationBar({ setTheme, accents}){
 
     const importedFileInpEl = useRef(null);
     const acceptableFileFormats = Languages.map(language=> language.extension);
-    const isAcceptableFile = (file)=> {
+    const getLanguage = (file)=> {
         if(!file.name.includes('.'))
-            return false
-        const newFileExtension = file.name.split('.').pop().toLowerCase(); //extract file extension from name
-        return Languages.some((language)=>{
-            return language.extension.trim() === ('.'+newFileExtension).trim();
-        });
+            return null
+        const newFileExtension = `.${(file.name.split('.').pop().toLowerCase())}`; //extract file extension from name
+        return Languages.find((language)=> language.extension == newFileExtension) || null; //language[obj] or null
     }
     const handleThemeChange = ()=>{
         setTheme(prevAccent => (prevAccent === accents.blue)? accents.light: accents.blue);
@@ -35,16 +33,11 @@ function NavigationBar({ setTheme, accents}){
         importedFileInpEl.current.click();
     };
     const handleImportCode = (event)=>{
-        console.log('Triggerd')
         const file = event.target.files[0];
-        console.log(event.target.files);
+        console.log(event.target.files, file.type);
         if(file){
-            if (!file.type.startsWith("text")) {
-                alert("Unsupported file type😬. Please select a readable/text file.", "error");
-                return;
-            }
-
-            if(!isAcceptableFile(file)){
+            const fileLanguage = getLanguage(file);
+            if(!fileLanguage){
                 alert("Unsupported file type😬. Please select one of our Supported file Types.", "error");
                 return;
             }
@@ -52,6 +45,7 @@ function NavigationBar({ setTheme, accents}){
             const reader = new FileReader();
             reader.onload = async(e) =>{
                 const content = e.target.result;
+                languageContext.set(fileLanguage);
                 codeContext.set(content);
             }
             reader.onerror = ()=> {
@@ -64,7 +58,9 @@ function NavigationBar({ setTheme, accents}){
         <HStack 
             mx={8}  
             px={8} 
+            pr={2}
             h={50} 
+            justifyContent={{ base: "space-between", md: "flex-start" }}
             bgGradient="linear(to-r, #e4e4e4ff, #d6d6d6, #7c7c7cff)"
             borderRadius={4} >
             <Text fontSize='xl' fontWeight='bold'>LOGO</Text>

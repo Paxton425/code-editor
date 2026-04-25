@@ -3,7 +3,7 @@ import { Languages } from "./Languages.js";
 
 function LanguageSelector({ languageId, onSelectLanguage }) {
     return (
-        <Box  m={{ base: 0, md: 2}} mb={{ base: 2, md: 0}}>
+        <Box  m={{ base: 0, md: 2}} mb={2}>
             <Text mb={2} fontSize='lg'>Language:</Text>
             <Select 
                 value={languageId}

@@ -72,7 +72,7 @@ function Output({languageId, sourceCode}) {
                     bgGradient: "linear(to-r, blue.600, blue.700, blue.800)",
                 }}
                 rightIcon={<RunIcon iconSize={6} />}
-                m={2}>
+                mb={2}>
                     Run
             </Button>
             
